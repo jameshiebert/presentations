@@ -28,6 +28,40 @@
 					<h1>Climate Data Delivery at PCIC</h1>
 					<p>James Hiebert and Basil Veerman</p>
 					<p>2016-06-14</p>
+					<aside class="notes">
+						<ul>
+							<li>Thanks for having us!</li>
+							<li>Our visit represents the work of others</li>
+							<ul>
+								<li>2 others in Computational Support Group</li>
+								<lI>Another dozen scientific staff at PCIC</lI>
+							</ul>
+							<li>Thrilled to be here</li>
+							<li>Other visits to Montreal were in March</li>
+							<li>"Harsh winter reality" after coming from the cherry blossoms of Victoria</li>
+						</ul>
+					</aside>
+				</section>
+				<section data-background="images/me.jpg">
+					<h2 style="position: relative; top: -200px;">About me</h2>
+					<aside class="notes">
+						<ul>
+							<li>PCIC for 6.5 years</li>
+							<li>NOAA before that</li>
+						</ul>
+						<p>
+							When our director, Dr. Francis Zwiers
+							gives presentations, he makes liberal use
+							of his own photograph and the joke is that
+							if you don't enjoy the <em>content</em> of
+							the presentation, at least you can try and
+							guess where the photos were taken. So I'm
+							trying to follow his lead in that
+							respect.
+						</p>
+					</aside>
+				</section>
+					
 				</section>
 				<section data-background="images/uvic.jpg">
 					<h2 style="position: relative; top: -200px;" >Pacific Climate<br>Impacts Consortium</h2>
@@ -44,7 +78,7 @@
 							impacts of climate change.
 						</p>
 						<p>
-							We were created in 2005, through an
+							PCIC was created in 2005, through an
 							endowment from the province of BC and
 							I <em>believe</em> that we were modeled
 							after Ouranos. We are also structured as a
@@ -153,7 +187,7 @@
 					<aside class="notes">
 						Keeping in line with our service model, we
 						have a responsibility to share and publish
-						that dat to our users and stakeholders which
+						that data to our users and stakeholders which
 						could be anyone from government scientists, to
 						hydro power engineers, to municipal planners.
 					</aside>
@@ -170,9 +204,9 @@
 						<p>
 							So over the last five years or so, we have
 							created a suite of data server
-							applications that all researchers and
-							affilliates to self-server according to
-							their needs.
+							applications that researchers and
+							affilliates can use to self-serve data
+							according to their needs.
 						</p>
 						<ul>
 							<li>Aggregated weather data</li>
@@ -300,7 +334,7 @@
 							theorettically wouldn't have to code unless it
 							wasn't so much fun. So realistically we only
 							have about 1.5-2 FTE dedicated to our web
-							services development.  Notes, notes and more
+							services development.
 						</p>
 						<p>
 							With a small group, we have to make use of
@@ -333,17 +367,52 @@
 							src="http://tools.pacificclimate.org/dataportal/pcds/map/"
 							style="border: 1px solid black; background-color: white"></iframe>
 					<aside class="notes">
+						<p>
+							Our first shot at data distribution was
+							4-5 years ago working with a group of
+							natural resource managers for the province
+							of BC. They were all collecting weather
+							data for their own particular needs (for
+							example avalanche monitoring or forest
+							fire monitoring), but were frustrated with
+							not having access to the station data in
+							someone else's ministry.
+						</p>
+						<p>
+							So we stepped in and joined them and said,
+							"Hey, if you all work to give PCIC your
+							historic data and continue streaming it to
+							us, we can make it available to everyone,
+							and maintain the data in perpetuity for
+							long-term climate monitoring.
+						</p>
 					</aside>
 				</section>
 				<section data-background="images/ec_weather_station.jpg">
 					<aside class="notes">
+						<p>
+							This project had some attributes that made
+							it good for our first attempt at data
+							distribution.
+						</p>
+						<p>
+							The data come from discrete locations and
+							are taken at discrete time intervals. And
+							unlike climate model output, there's no
+							future data... only the past. So
+							ultimately the data lacks bulk; the entire
+							data set fits on a 1-2 TB hard drive,
+							which makes it much easier to build a
+							system around.
+						</p>
 					</aside>
 				</section>
 				<section data-background="images/wind.jpg">
 					<aside class="notes">
-						The data is highly heterogeneous. Each
-						location has multiple sensors, but stations
-						have different sets of sensors.
+						A downside, however, is that the data is
+						highly heterogeneous. Each location has
+						multiple sensors, but stations have different
+						sets of sensors.
 					</aside>
 				</section>
 				<section data-background="images/rain.jpg">
@@ -358,15 +427,15 @@
 					</aside>
 				</section>
 				<section data-background="images/ec_weather_station_2.jpg">
-					<h2>PCDS Portal</h2>
-					<ul>
-						<li>Highly hetergeneous (-)</li>
+					<h2 style="position: relative; top: -150px;">PCDS Portal</h2>
+					<ul style="position: relative; top: -150px; right: -50px">
 						<li>Low bulk (+)</li>
 						<ul>
 							<li>discrete locations</li>
 							<li>discrete times</li>
 							<li>no future data (hopefully)</li>
 						</ul>
+						<li>Highly hetergeneous (-)</li>
 					</ul>
 				</section>
 				<section>
@@ -377,6 +446,16 @@
 							<li>Geoserver for feature layers</li>
 							<li>Python backend for a handful of API endpoints</li>
 							<li>PyDAP serves the timeseries data in a handful of different formats</li>
+						</ul>
+					</aside>
+				</section>
+				<section data-background="images/river.jpg">
+					<aside class="notes">
+						<ul>
+							<li>We have a team of hydrologists</li>
+							<li>They run hydrologic simulations under climate change scenarios</li>
+							<li>One output is a timeseries of future flow at gauged locations</li>
+							<li>So we created a data portal to distribute their data</li>
 						</ul>
 					</aside>
 				</section>
@@ -460,7 +539,7 @@
 						</p>
 					</aside>
 				</section>
-				<section>
+				<section data-background="images/baker.jpg">
 					<h2>Big data, big RAM, BadRequest, Oh My!</h2>
 					<img src="images/opendap_form.png" />
 					<aside class="notes">
@@ -471,7 +550,7 @@
 						</p>
 					</aside>
 				</section>
-				<section>
+				<section data-background="images/baker.jpg">
 					<h2>Big data, big RAM, BadRequest, Oh My!</h2>
 					<img src="images/bad_request.png" />
 					<aside class="notes">
@@ -483,9 +562,94 @@
 						request across thousands of separate
 						requests.
 					</p>
-
 				</section>
+				<section data-background="images/volcano.jpg">
+					<h2>Generators: 70's tech that works today!</h2>
+					<ul>
+						<li>a function which yields execution rather than returning</li>
+						<li>yields values one at a time, on-demand</li>
+						<li>low memory footprint</li>
+						<li>faster; no calling overhead</li>
+						<li>elegant!</li>
+					</ul>
+					<aside class="notes">
+						<p>
+							Enter generators and
+							coroutines. Generators are a programming
+							control where a function, rather than
+							returning, can yield execution and sort of
+							return values one at a time on-demand. It
+							has the performance advantage of
+							maintaining a low memory footprint, if you
+							want to return something large, you don't
+							have to do so all at once, and they tend
+							to be slightly faster, because you avoid a
+							lot of calling overhead of stack
+							manipulation.
+						</p>
+						<p>
+							Generators have been around for a good
+							thirty-five years, but have been
+							experiencing a bit of a Renaissance
+							lately. If one programs in python, they
+							are extremely easy to use, and with the
+							advent of big data applications, they have
+							a lot of utility.
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/volcano.jpg">
+					<h2>Generator Example</h2>
+					<pre>
+from itertools import islice
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a+b
 
+# print the first 10 values of the fibonacci sequence
+for x in islice(fibonacci(), 10):
+    print x
+					</pre>
+					<aside class="notes">
+						<p>
+							For those who aren't familiar, here's a
+							quick example to understand
+							generators. Generating a Fibonacci
+							sequence is kind of the quintessential toy
+							example. The generator function,
+							fibonacci(), is defined at the top. You'll
+							notice that it's an infinite loop, because
+							the sequence is by definition,
+							infinite. But rather than building up the
+							values in memory, it just has a simple and
+							elegant “yield” statement right inside the
+							loop. The calling loop down below,
+							actually pulls items from the function,
+							one at a time, and then does whatever it
+							needs to do with them. It's fast,
+							efficient, and actually fairly elegant,
+							readable code, too.
+						</p>
+						<p>
+							So you can see, for something like a web
+							application serving big datasets, this is
+							perfect, because we can provide a very low
+							latency response, and then stream the data
+							to the user as our high-latency operations
+							like disk reads take place.
+						</p>
+						<p>
+							None of the OPeNDAP servers out there
+							supported streaming, so many of the
+							modifications that we made to PyDAP were
+							for it to use generators to stream the
+							responses.
+						</p>
+					</aside>
+				</section>
+				
 				<section data-background="images/five-alarm-fire.jpg">
 					<h2>Problems?</h2>
 					<ul>
@@ -515,15 +679,25 @@
 				</section>
 				
 				<section>
-					<h2>Spatiotemporal data</h2>
-					<h3>i.e. the "Data Cube"</h3>
-					<p>Content</p>
+					<h2>The future?</h2>
 					<ul>
-						<li>Bulletted</li>
-						<li>List</li>
+						<li>Information, not data</li>
+						<li>Online analysis saves bandwidth</li>
 					</ul>
 					<aside class="notes">
-						Notes, notes and more notes
+					</aside>
+				</section>
+				<section>
+					<h2>PCIC Climate Explorer</h2>
+					<iframe width="1024" height="600" frameborder="0"
+							scrolling="yes" marginheight="0" marginwidth="0"
+							src="http://docker1.pcic.uvic.ca:20002/"
+							style="border: 1px solid black; background-color: white"></iframe>						
+				</section>
+				<section>
+					<h2>Conclusions</h2>
+					
+					<aside class="notes">
 					</aside>
 				</section>
 				<section>
