@@ -4,13 +4,18 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>High performance climate downscaling in R</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<style>
+		  #big-data {position: absolute; font-size: 180px; width: 100%; top: 300px;
+		             text-align: center; text-style: bold; text-shadow: black 10px 10px 4px;}
+		</style>
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -24,8 +29,481 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section data-background="images/ice.jpg">
+					<h1>High performance climate downscaling in R</h1>
+					<p>UseR! 2016</p>
+					<p>James Hiebert</p>
+					<p>2016-06-29</p>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section data-background="images/me.jpg">
+					<h2 style="position: relative; top: -200px;">About me</h2>
+					<aside class="notes">
+						<ul>
+							<li>PCIC for 6.5 years</li>
+							<li>NOAA before that</li>
+						</ul>
+						<p>
+							When our director, Dr. Francis Zwiers
+							gives presentations, he makes liberal use
+							of his own photograph and the joke is that
+							if you don't enjoy the <em>content</em> of
+							the presentation, at least you can try and
+							guess where the photos were taken. So I'm
+							trying to follow his lead in that
+							respect.
+						</p>
+					</aside>
+				</section>
+					
+				</section>
+				<section data-background="images/uvic.jpg">
+					<h2 style="position: relative; top: -200px;" >Pacific Climate<br>Impacts Consortium</h2>
+					<h3 style="position: relative; top: -100px;" class="fragment">PCIC</h3>
+
+					<aside class="notes">
+						<p>
+							I am here visiting from the Pacific
+							Climate Impacts Consortium *click* or
+							(PCIC) which is a non-profit based out of
+							the University of Victoria. Our mission is
+							to bridge the gap between academic climate
+							science and applied policy regarding the
+							impacts of climate change.
+						</p>
+						<p>
+							PCIC was created in 2005, through an
+							endowment from the province of BC ...
+						</p>
+					</aside>
+				</section>
+
+				<section data-background="images/partners.jpg">
+					<aside class="notes">
+						<p>
+							We work with our partners to conduct
+							credible, peer reviewed research on the
+							effects of climate change in BC and work
+							with stakeholders such as provincial,
+							regional and local governments to make use
+							of that research.
+						</p>
+					</aside>
+				</section>
+
+				<section data-background="images/glen_canyon_dam.jpg">
+					<h2 style="position: relative; top: 50px;" >E.g. hydro power</h2>
+					<aside class="notes">
+						Our stakeholders use our climate projections
+						to answer a wide array of pertinent questions
+						and to make policy and engineering descision
+						for incredibly expensive infrastructure based
+						on the results of our impacts models. Examples
+						include whether future river flows can support
+						hydro power...
+					</aside>
+				</section>
+
+				<section data-background="images/road_washout.jpg">
+					<h2>E.g. stormwater runoff</h2>
+					<aside class="notes">
+						whether future storm intensity will
+						necessitate larger culverts, storm drains, or
+						bridges...
+					</aside>
+				</section>
+
+				<section data-background="images/storm_surge.jpg">
+					<h2>E.g. sea level rise</h2>
+					<aside class="notes">
+						to what degree sea level rise might inundate
+						our homes and farmland...
+					</aside>
+				</section>
+
+				<section data-background="images/glacier_calve.jpg">
+					<h2>E.g. glacier melt</h2>
+					<aside class="notes">
+						how loss of glacier mass might affect our
+						streams and rivers...
+					</aside>
+				</section>
+
+				<section data-background="images/alpine_glaciers.jpg">
+					<h2>E.g. glacier melt</h2>
+					<aside class="notes">
+						both tidewater and alpine glaciers...
+					</aside>
+				</section>
+
+				<section data-background="images/forest_fire.jpg">
+					<h2>E.g. forest fire</h2>
+					<aside class="notes">
+						or whether our forests might become more
+						susceptible to fire...
+					</aside>
+				</section>
+
+				<section data-background="images/pine_beetle.jpg">
+					<h2>E.g. pine bark beetle</h2>
+					<aside class="notes">
+						or outbreaks of disease.
+					</aside>
+				</section>
+
+				<section data-background="images/background.jpg">
+					<h2>Global (and Regional) Models</h2>
+					<h4>Coarse resolution</h4>
+					<img src="images/gcm_to_rcm_a.jpg" alt="Resolution of a GCM" width="400px">
+					<img src="images/gcm_to_rcm_b.jpg" alt="Resolution of a RCM" width="400px">
+					<aside class="notes">
+						<p>
+							To do so, we use global climate models
+							(GCMs), and sometimes regional climate
+							models to assess the effects of future
+							climate on the natural and built
+							environment. The challenge though, is that
+							GCMs come at very coarse
+							resolution. Sometimes a hundred kilometers
+							or more across a single grid cell.
+						</p>
+						<p>
+							British Columbia has a very high
+							topographic relief, so 100 kilometers
+							could (and does) contain everything from
+							sandy beaches, to alpine meadows,
+							mountains, valleys, tidal flats, or
+							glaciers. So having one single climate
+							value for such a wide range of area, isn't
+							that useful to natural resource
+							professionals trying to make decisions on
+							the ground.
+						</p>
+					</aside>
+				</section>
+
+				<section data-background="images/background.jpg">
+					<h2>Downscaling</h2>
+					<img src="images/downscaled_gcms.png">
+					<aside class="notes">
+						<p>
+							So we have a department at PCIC that is
+							responsible for downscaling the
+							coarse-scale GCM information to a finer
+							scale that is more applicable to the local
+							level. I'm not on that team and can't
+							provide intimate detail about that
+							process, but it essentially involves
+							drawing statistical relationships between
+							GCM's and gridded observerations during
+							the period of record, and then
+							extrapolating those relationships to the
+							modeled time period.
+						</p>
+					</aside>
+				</section>
+
+				<section data-background="images/background.jpg">
+					<h2>BCCAQ</h2>
+					<p>Bias Corrected Constructed Analogues</p>
+						<p>(with Quantile mapping)</p>
+					<p>http://journals.ametsoc.org/doi/10.1175/JCLI-D-14-00754.1</p>
+					<aside class="notes">
+						<p>
+							The method that our climate statistions
+							have come up with is a combination of many
+							existing methods, trying to combine the
+							advantages of each. The name is a
+							mouthful, but we can abbreviate it as
+							BCCAQ. I'll give a brief synopsis, but
+							again I'm on the computational team. For a
+							more rigorous explaination of the
+							methodology, I'll refer you to the
+							literature.
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/background.jpg">
+					<h2>BCCAQ Flowchart</h2>
+					<object type="image/svg+xml"
+							data="images/BCCAQv2.svg">
+						SVG drawing of BCCAQ data flow
+					</object>
+					<aside class="notes">
+						<p>
+							The two main inputs are two spatiotemporal
+							data cubes. The GCM is spatially coarse,
+							but has a long time record, while the
+							gridded observations have a fine spatial
+							scale, but are limited to the period of
+							record.
+						</p>
+						<p>
+							Bias Correction Climate Imprint does... something.
+						</p>
+						<p>
+							QPQM maps the quantiles from the climate
+							imprint to the observations.
+						</p>
+						<p>
+							Bias Corrected Constructed Analogues is
+							the most computationally intensive step,
+							which I'll discuss in a minutes. And
+							finally the climate analogues are used to
+							drive a reordering step to create the
+							final downscaled output.
+						</p>
+					</aside>
+				</section>
+
+				<section data-background="images/background.jpg">
+					<h2 >Challenges: Data Volume</h2>
+					<p class="fragment">
+						\(n \) emission scenarios
+					</p>
+					<p class="fragment">
+						\(\times\)<br>
+						\(m \) GCMs
+					</p>
+					<p class="fragment">
+						\(\times\)<br>
+						\(o\) RCMs
+					</p>
+					<p class="fragment">
+						\(\times\)<br>
+						variables
+					</p>
+					<p class="fragment">
+						\(\times\)<br>
+						space
+						<br>\(\times\)<br>
+						time
+					</p>
+					<div id="big-data" class="fragment">Big Data</div>
+					<aside class="notes">
+						<p>
+							When we perform the downscaling, typically
+							we're downscaling some number of emission
+							scenarios, for all of the GCMs that we
+							have, and all of the RCMs that we have,
+							times all of the variables.
+						</p>
+						<p>
+							All of that, we can easily parallelize by
+							job, because none of those things are
+							dependent on each other.
+						</p>
+						<p>
+							Time and space, however, are typically
+							required at mostly the same time
+							throughout at least some of the
+							downscaling methods, so they turn this
+							into a bit of a big data problem.
+						</p>
+					</aside>
+				</section>
+				<section>
+					<object type="image/pdf"
+							data="images/constructed_analogues.pdf"
+							width="800" height="600">
+						CEC report's diagram of BCCA
+					</object>
+					<small><p>Source: CEC-500-2007-123</p></small>
+					<aside class="notes">
+						<p>
+							Bias Corrected Constructed Ananlogues
+							(BCCA) in particular is one of the most
+							computationally intensive parts of the
+							pipeline. So the goal of BCCA is to find
+							for every timestep in the GCM to find 30
+							of the most similar timesteps in the
+							observered period. So it's essentially
+							doing an n x m comparison for each set of
+							timesteps and that comparison involves
+							taking the square of the sum of the
+							differences between each pair of grid
+							cells.
+						</p>
+					</aside>
+				</section>
+
+				<section data-background="images/jellyfish.jpg">
+					<h2>BCCA Complexity/Run time</h2>
+					<p class="fragment">\(O( t_{obs} \times t_{GCM} \times C )\)
+					<p class="fragment">BCCA: 30-72 <em>hours</em>!</p>
+					<aside class="notes">
+						<p>
+							So, the computational complexity of BCCA
+							as a function of the input size is the
+							number of observed timesteps times the
+							number of GCM timesteps times C which
+							isn't a constant, that's the number of
+							cells in the GCM.
+						</p>
+						<p>
+							So the input size in in the trillions for
+							a single model.
+						</p>
+						<p>
+							The original prototype code that our
+							climate scientists wrote took 30-72 hours
+							to run a single model which is clearly
+							ridiculous. Any of our HPC queuing systems
+							have a job wall time limit of 3 days, so
+							we need for our jobs to finish faster than
+							that.
+						</p>
+						<p>
+							We wanted to improve upon this...
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/plaid.png">
+				</section>
+				<section data-background="images/baker.jpg">
+					<h2>Refactoring</h2>
+					<table>
+						<thead>
+							<td />Before
+							<td />After
+						</thead>
+						<tr>
+							<td />3k LOCs
+							<td />1400 LOCs
+						</tr>
+						<tr>
+							<td />500 LOCs config
+							<td />50 LOCs config
+						</tr>
+						<tr>
+							<td />25 files
+							<td />13 files
+						</tr>
+					</table>
+				</section>
+				<section data-background="images/baker.jpg">
+					<h2>The ClimDown package</h2>
+					<ul>
+						<li>https://github.com/pacificclimate/ClimDown</li>
+						<li>Not on CRAN (yet)</li>
+					</ul>
+					<pre>
+> devtools::install_github('pacificclimate/ClimDown', ref='release')
+					</pre>
+				</section>
+				<section data-background="images/baker.jpg">
+					<h2>CI: check</h2>
+					<a href="https://travis-ci.org/pacificclimate/ClimDown/">
+						<img src=https://travis-ci.org/pacificclimate/ClimDown.svg alt="TravisCI build status"/>
+					</a>
+					<aside class="notes">
+						<p>
+							Thanks to the authors and maintainers of R
+							for Travis CI. It made it <em>really</em>
+							easy to get our test suite running under
+							continuous integration.
+						</p>
+						<p>
+							So the package ships with a very small
+							dataset of gridded obs and a micro-subset
+							of a GCM to run the downscaling end-to-end
+							in the tests.
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/baker.jpg">
+					<h2>Dependencies</h2>
+					<pre>
+Imports:
+    PCICt,
+    udunits2,
+    ncdf4,
+    fields,
+    foreach,
+    seas,
+    abind
+					</pre>
+				</section>
+				<section data-background="images/baker.jpg">
+					<h2>User Interface</h2>
+					<pre>
+hiebert@aether:~/code/ClimDown$ grep export NAMESPACE
+export(bcca.netcdf.wrapper)
+export(bccaqv2.netcdf.wrapper)
+export(bcci.netcdf.wrapper)
+export(qdm.netcdf.wrapper)
+export(qpqm.netcdf.wrapper)
+					</pre>
+					<pre>
+> *.wrapper('gcm.nc', 'obs.nc', 'out.nc', 'varname')
+					</pre>
+					<aside class="notes">
+						<p>
+							The user interface is really simple. We
+							just export a single function for each of
+							the five downscaling steps or methods that
+							are available.
+						</p>
+						<p>
+							And then using them is as simple as
+							calling the wrapper and pointing it to a
+							GCM a gridded observation file, naming the
+							output file and saying which variable you
+							want to downscale.
+						</p>
+						<p>
+							The prototype that our climate scientists
+							wrote up had like 500 lines of
+							configuration code that you had to
+							hand-edit every time you wanted to do a
+							new run, so this is much much simpler.
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/baker.jpg">
+					<h2>Parallelization</h2>
+					<ul>
+						<li>Use foreach package</li>
+						<li>User configurerd parallel backend</li>
+					</ul>
+					<pre>
+> library(doParallel)
+> registerDoParallel(cores=4)
+> bccaq.netcdf.wrapper()
+					</pre>
+				</section>
+				<section data-background="images/volcano.jpg">
+					<h2>"High performance"?</h2>
+					<img style="border: 0px;" src="images/thumbs_down.png" class="fragment" alt="Thumbs down" />
+					<aside class="notes">
+						<p>Have we achieved high-performance downscaling?</p>
+						<p>Still 8 hours to run BCCA and days to run the full pipeline</p>
+					</aside>
+				</section>
+				<section data-background="images/rainier.jpg">
+					<h2>Next Steps</h2>
+					<ul>
+						<li>Performance</li>
+						<ul class="fragment">
+							<li>Stop copying data!</li>
+							<li>Order of magnitude improvement on BCCA</li>
+							<li>More sophisticated parallelization?</li>
+						</ul>
+						<li>Validity</li>
+						<ul class="fragment">
+							<li>Fix a few bugs</li>
+						</ul>
+					</ul>
+				</section>
+				<section data-background="images/rainier.jpg">
+					<h2>Conclusions</h2>
+					<ul>
+						<li class="fragment">Climate data is big</li>
+						<li class="fragment">Downscaling is computationally expensive</li>
+						<li class="fragment">We wrote ClimDown to help</li>
+						<li class="fragment">Improvements are ongoing</li>
+					</ul>
 			</div>
 		</div>
 
@@ -35,15 +513,22 @@
 		<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				history: true,
+			history: true,
+			math: {
+			mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+			config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+			    },
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [
+			{ src: 'plugin/markdown/marked.js' },
+			{ src: 'plugin/markdown/markdown.js' },
+			{ src: 'plugin/notes/notes.js', async: true },
+			{ src: 'socket.io/socket.io.js', async: true },
+			{ src: 'plugin/notes-server/client.js', async: true},
+			{ src: 'plugin/math/math.js', async: true },
+			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+			]
 			});
 		</script>
 	</body>
