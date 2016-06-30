@@ -360,6 +360,16 @@
 					</aside>
 				</section>
 				<section data-background="images/plaid.png">
+					<aside class="notes">
+						<ul>
+							<li>Visualization of BCCA analogue selection</li>
+							<li>Climate model generated plaid (sure to be the next hipster trend)</li>
+							<li>Only 10 years x 10 years (compared to 30 x 150 year of a typical run)</li>
+							<li>X axis = GCM, Y axis = obs</li>
+							<li>dark pixels are highly correlated, white are poorly correlated</li>
+							<li>yellow pixels are the top 30 selected analogues</li>
+						</ul>
+					</aside>
 				</section>
 				<section data-background="images/baker.jpg">
 					<h2>Refactoring</h2>
@@ -481,9 +491,22 @@ export(qpqm.netcdf.wrapper)
 						<p>Still 8 hours to run BCCA and days to run the full pipeline</p>
 					</aside>
 				</section>
-				<section data-background="images/rainier.jpg">
-					<h2>Next Steps</h2>
+				<section data-background="images/volcano.jpg">
+					<h2>"High performance"!</h2>
 					<ul>
+						<li>5x speedup of QPQM</li>
+						<li>14,000x speedup of BCCA grid mapping</li>
+						<li>8x speedup on BCCA</li>
+						<li>12,000x reduction of BCCA output space (lazy eval FTW)</li>
+					</ul>
+					<aside class="notes">
+						<p>I shouldn't be that hard on myself</p>
+						<p>We have a number of big wins that were drastic improvments over the prototype code.</p>
+					</aside>
+				</section>
+				<section data-background="images/rainier.jpg">
+					<h2 style="color: black;">Next Steps</h2>
+					<ul style="color: black;">
 						<li>Performance</li>
 						<ul class="fragment">
 							<li>Stop copying data!</li>
@@ -497,8 +520,8 @@ export(qpqm.netcdf.wrapper)
 					</ul>
 				</section>
 				<section data-background="images/rainier.jpg">
-					<h2>Conclusions</h2>
-					<ul>
+					<h2 style="color: black;">Conclusions</h2>
+					<ul style="color: black;">
 						<li class="fragment">Climate data is big</li>
 						<li class="fragment">Downscaling is computationally expensive</li>
 						<li class="fragment">We wrote ClimDown to help</li>
@@ -513,6 +536,7 @@ export(qpqm.netcdf.wrapper)
 		<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
+			showNotes: true,
 			history: true,
 			math: {
 			mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
