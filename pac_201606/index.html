@@ -1,0 +1,361 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Web-based Regional Climate Analysis</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background="images/ice.jpg">
+					<h1>Web-based Regional Climate Analysis</h1>
+					<p>James Hiebert and Basil Veerman</p>
+					<p>2016-06-24</p>
+					<aside class="notes">
+						<ul>
+							<li>Thanks for having me today</li>
+							<li>It's been almost 4 years since my last presentation to the PAC</li>
+							<li>Lots has happened since then</li>
+						</ul>
+					</aside>
+				</section>
+				<section data-background="images/me.jpg">
+					<h2 style="position: relative; top: -200px;">About me</h2>
+					<aside class="notes">
+						<ul>
+							<li>For those who don't know me, I'm lead of the Computational Support Group</li>
+							<li>I've been with PCIC for nearly 7 years</li>
+							<li>We only have a small amount of time left to implement PCIC's sabbatical policy</li>
+						</ul>
+						<p>
+							When Francis gives presentations, he makes
+							liberal use of his own photography and the
+							joke is that if you don't enjoy
+							the <em>content</em> of the presentation,
+							at least you can be entertained by trying
+							to guess where the photos were taken. So
+							I'm going to try and follow his lead here.
+						</p>
+					</aside>
+				</section>
+				<section>
+					<section data-background="images/background.jpg">
+						<h2>PCIC's Data Products</h2>
+						<iframe width="1024" height="600" frameborder="0"
+								scrolling="yes" marginheight="0" marginwidth="0"
+								src="https://pacificclimate.org/data/"
+								style="border: 1px solid black; background-color: white"></iframe>
+						<aside class="notes">
+							<p>
+								So over the last five years or so, we have
+								created a suite of data server
+								applications that researchers and
+								affilliates can use to self-serve data
+								according to their needs.
+							</p>
+						</aside>
+					</section>
+					<section data-background="images/background.jpg">
+						<img src="images/pcds_screenshot.jpg" alt="PCDS portal screenshot"/>
+						<aside class="notes">
+							Aggregated weather data
+						</aside>
+					</section>
+					<section data-background="images/background.jpg">
+						<img src="images/downscaled_screenshot.jpg" alt="Downscaled GCM screenshot"/>
+						<aside class="notes">
+							High-resolution downscaled climate model output
+						</aside>
+					</section>
+					<section data-background="images/background.jpg">
+						<img src="images/prism_preview.jpg" alt="PRISM screenshot"/>
+						<aside class="notes">
+							Gridded climatologies from PRISM
+						</aside>
+					</section>
+					<section data-background="images/background.jpg">
+						<img src="images/hydro_raster_screenshot.jpg" alt="Hydro raster screenshot" />
+						<aside class="notes">
+							Gridded hydrologic model output
+						</aside>
+					</section>
+					<section data-background="images/background.jpg">
+						<img src="images/hydro_stn_screenshot.jpg" alt="Hydro raster screenshot" />
+						<aside class="notes">
+							<p>
+								Discrete hydrologic model output
+							</p>
+						</aside>
+					</section>
+				</section>
+				<section data-background="images/river.jpg">
+					<h2 style="color: black; position: relative; top: -200px;">2015 Usage</h2>
+					<ul style="color: black; position: relative; top: -200px;">
+						<li>10.0 TB</li>
+						<li>81576 requests</li>
+						<li>849 users</li>
+					</ul>
+					<aside class="notes">
+						<p>
+							So we've had lots of data flowing from our
+							system to users for the last four years.
+						</p>
+						<p>
+							But our users don't just want data, they
+							want the information and analysis that's
+							behind that data.
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/volcano.jpg">
+					<h2 style="position: relative; top: -200px">Information, not data</h2>
+					<aside class="notes">
+						<p>
+							So we want to create a tool that distills
+							this data down to its essence and gives
+							people insight into climate projections,
+							particularly with respect to people's
+							specific regions.
+						</p>
+				</section>
+				<section data-background="images/background.jpg">
+					<h2>The R.A.T.</h2>
+					<img src="images/rat.png" alt="RAT screenshot" />
+					<aside class="notes">
+						<p>
+							So if this sounds familiar, we've had a
+							product like this for quite some
+							time... 10 or 15 years... the Regional
+							Analysis Tool or RAT.
+						</p>
+						<p>
+							But its architecture is quite limited, its
+							user interface is outdated, extending it
+							is impractical, and adding or modifying
+							the data that it can use presents
+							significant challenges.
+						</p>
+						<p>
+							So we've set out to build something that
+							is simultaneously better in those regards
+							and also lighter weight.
+						</p>
+					</aside>
+				</section>
+
+				<section data-background="images/rainier.jpg" style="color: black">
+					<div style="color: black; position: relative; width: 75%; right: -30%">
+						<h2 style="color: black">Features</h2>
+						<ul>
+							<li>Feature parity with RAT</li>
+							<li>Better usability</li>
+							<li>More able to add data for analysis</li>
+							<li>Client side plotting (less server resources)</li>
+							<li>Supports data with heterogeneous resolutions (both in time and space)</li>
+							<li>System and data are <em>decoupled</em></li>
+						</ul>
+					</div>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section data-background="images/glen_canyon_dam.jpg">
+					<div style="color: black">
+						<h2 style="color: black">Deployability</h2>
+						<ul>
+							<li>Built for use in containers</li>
+							<li>Deployable to any* PaaS provider</li>
+						</ul>
+					</div>
+					<aside class="notes">
+						<p>
+							This may not seem like a big issue to
+							<em>users</em> of our software, but it's
+							actually quite a bit challenge simply to
+							install and deploy our software to a place
+							that is accessible to the world.
+						</p>
+						<p>
+							With the Climate Explorer, we've utilized
+							a container technology called Docker which
+							more-or-less allows the software to be
+							easily deployed anywhere. The only caveat
+							to that is that the deployment location
+							has to have a climate data archive
+							accessible to it. But it automates the
+							installation of all of the system
+							dependencies and spins up the servers and
+							everything works seamlessly.
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/ec_weather_station_2.jpg">
+					<div style="position: relative; width: 75%; right: -30%; top: -100px">
+						<h2>Reusability</h2>
+						<ul>
+							<li>Architecture of separation</li>
+							<li>Backend data can be used/queried by multiple clients/users</li>
+						</ul>
+					</div>
+					<aside class="notes">
+						<p>
+							We have a created an architecture with a
+							pretty strict separation of
+							responsibilities. The backend handles all
+							interaction with our climate data archive
+							and its metadata.
+						</p>
+						<p>
+							It communicates to the frontend through a
+							well-defined web application programmer
+							interface (API). This clear separation of
+							responsibilities reduces the system
+							complexity and makes it easy for the
+							backend to be used by multiple frontend
+							clients.
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/alpine_glaciers.jpg">
+					<div style="color: black">
+						<h2 style="color: black">Maintainability</h2>
+						<ul>
+							<li>The RAT was <em>not</em> maintainable</li>
+							<ul>
+								<li>Adding data required substantial knowledge about the internals of the system</li>
+								<li>Not all code under version control</li>
+							</ul>
+						</ul>
+					</div>
+					<aside class="notes">
+						<p>took our developers hours/days to find the code that was actually running</p>
+					</aside>
+				</section>
+				<section data-background="images/Holland_Island_house.jpg">
+					<h3 >Work smarter, not harder</h3>
+					<table style="position: relative; bottom: -250px;">
+						<thead>
+							<td />LOC
+							<td />Rat
+							<td />CE
+						</thead>
+						<tr>
+							<td />Backend API
+							<td />9273
+							<td />1014/1924
+						</tr>
+						<tr>
+							<td />Data Prep
+							<td />5841
+							<td />507
+						</tr>
+						<tr>
+							<td />Frontend
+							<td />9568
+							<td />3785
+						</tr>
+					</table>
+					<aside class="notes">
+						<p>
+							So notice that with feature parity, we
+							essentially have rewritten the RAT with
+							between one third to one tenth of the
+							amount of code.
+						</p>
+						<p>
+							Having less code means much less
+							maintenance time, less time to find a bug,
+							less time to on board new developers, and
+							represents less risk if a team member
+							might quit or get sick or what have you.
+						</p>
+					</aside>
+				</section>
+				<section data-background="images/glacier_calve.jpg">
+				  <h2>Automated testing</h2>
+				  <ul>
+				    <li>Tests run when you commit/push code changes</li>
+				    <li><a style="color: black" href="https://github.com/pacificclimate/climate-explorer-backend">Prominent build status</a></li>
+				    <ul>
+				      <li><a style="color: black" href="https://travis-ci.org/pacificclimate/climate-explorer-backend/">Back end</a></li>
+				      <li><a style="color: black" href="https://travis-ci.org/pacificclimate/climate-explorer-frontend/">Front end</a></li>
+				    </ul>
+				  </ul>
+				</section>
+				<section data-background="images/background.jpg">
+					<h4>Architecture</h4>
+					<object type="image/svg+xml" data="images/ce_arch.svg">
+						SVG drawing of Climate Explorer architecture
+					</object>
+				</section>
+				<section data-background="images/background.jpg" data-transition="none" data-background-transition="none" data-transition-speed="fast">
+					<h4>Architecture</h4>
+					<object type="image/svg+xml" data="images/ce_arch_active.svg">
+						SVG drawing of Climate Explorer architecture
+					</object>
+				</section>
+
+				<section data-background="images/baker.jpg">
+					<h2>Backend API</h2>
+					<p>Four base calls</p>
+					<ul style="font-family: monospace;">
+						<li><a style="color: white;" href="http://docker1:20003/api/metadata?model_id=txxETCCDI_aMon_CSIRO-Mk3-6-0_rcp45_r2i1p1_20400101-20691231">http://localhost/api/metadata</a></li>
+						<li>http://localhost/api/data</li>
+						<li>http://localhost/api/timeseries</li>
+						<li>http://localhost/api/stats</li>
+					</ul>
+					<p style="color: white;">Plus two wrappers:</p>
+					<ul style="font-family: monospace">
+						<li><a style="color: white;" href="http://docker1:20003/api/multimeta?">http://localhost/api/multimeta</a></li>
+						<li>http://localhost/api/multistats</li>
+					</ul>
+				</section>
+
+				<section data-background="images/printer.gif">
+				  <h2>Backend is for computers</h2>
+				</section>
+				<section data-background="images/jellyfish.jpg">
+				  <h2>The front-end is for you</h2>
+				  <h4>...and pretty much everyone</h4>
+				  <p>Demo to follow</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+			{ src: 'plugin/notes/notes.js', async: true },
+			{ src: 'socket.io/socket.io.js', async: true },
+			{ src: 'plugin/notes-server/client.js', async: true},
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+Features
+
+* Feature parity with RAT
+* Better usability
+* More able to add data for analysis
+* Client side plotting (less server resources)
+* Supports data with heterogeneous resolutions (both in time and space)
+* System and data are *decoupled*
+
+Deployability
+
+* Built for use in containers
+* Deployable to any PaaS provider ** (some caveats apply)
+
+Reusability
+
+* Architecture of separation
+* Backend data can be used/queried by multiple clients/users
+
+Maintainability
+
+* The RAT was *not* maintainable
+  * Adding data required substantial knowledge about the internals of the system
+  * Some code was not under version control and took our developers hours/days to find the code that was actually running
+  * 
