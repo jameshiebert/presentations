@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Storage system, backup and recovery</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
@@ -23,10 +23,135 @@
 	</head>
 	<body>
 		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+		  <div class="slides">
+		    <section>
+		      <h2>PCIC's storage system</h2>
+		      <img src="images/rack_small.jpg" height="600px"/>
+		    </section>
+		    </section>
+		    <section>
+		      <h2>Previously integrated system</h2>
+		      <object type="image/svg+xml" data="images/storage_current.svg">
+		      </object>
+		    </section>
+		    <section>
+		      <!--<h2>Decoupled compute/storage</h2>-->
+		      <img src="images/dedicated-compute-storage-ceph.png" height="700px" />
+		    </section>
+		    <section>
+		      <h2>"Scale out" storage</h2>
+		      <object type="image/svg+xml" data="images/gluster_storage_scaleout_diagram.svg">
+		      </object>
+		    </section>
+		    <section>
+		      <h2>Replication mode</h2>
+		      <h3>Used for OS/VM storage</h3>
+		      <img src="images/Distributed_Replicated_Volume.png" />
+		    </section>
+		    <section>
+		      <h2>Distributed mode</h2>
+		      <h3>Used for bulk data</h3>
+		      <img src="images/Distributed_Volume.png" />
+		    </section>
+		    <section>
+		      <h2>Distributed mode redundancy</h2>
+		      <h3>Disk-level: RAID</h3>
+		      <object type="image/svg+xml" data="images/RAID_6.svg">
+		      </object>
+		    </section>
+		    <section>
+		      <h2>Distributed mode</h2>
+		      <ul>
+			<li>No host-level redundancy</li>
+			<li>Optional file-level redundancy</li>
+			<li>Not robust against "user error"</li>
+		      </ul>
+		    </section>
+		    <section>
+		      <h2>Data Loss and recovery</h2>
+		      <ul>
+			<li>May 14: Initial data loss</li>
+			<li>May 16: Data loss discovery</li>
+			<li>May 17-June 3: Stage 1 recovery (on-disk)</li>
+			<li>May 19-July 14: Stage 1.5 recovery (TSM /home)</li>
+			<li>June 4-July 11: Stage 2 recovery (TSM priority)</li>
+			<li>June 15-July 19: Stage 3 recovery (TSM)</li>
+			<li>July 19-present: Stage 3 reboot (TSM)</li>
+		      </ul>
+		    </section>
+		    <section>
+		      <h2>Future backups</h2>
+		      <h3>Dedicated backup server</h3>
+		      <ul>
+			<li>Asynchronous geo-replication</li>
+			<li>Last 24 hours of 3 hour point in time snapshots</li>
+			<li>Last 30 days of daily point in time snapshots</li>
+			<li>6 months of weekly point in time snapshots</li>
+			<li><em>Very</em> fast restore</li>
+			<li>Real-time, <em>usable</em> read-only copy if primary storage fails</li>
+		      </ul>
+		    </section>
+		    <section>
+		      <h2>Backup server</h2>
+		      <ul>
+			<li>Reused hardware</li>
+			<ul>
+			  <li>45 Disk 4U JBOD expanders</li>
+			  <li>90 x 4T disks</li>
+			</ul>
+			<li>Software</li>
+			<ul>
+			  <li>GlusterFS Server configured as geo-replication target</li>
+			  <li>ZFS + Compression + De-duplication + snapshots</li>
+			  <li>TSM to RSF tape</li>
+			</ul>
+		      </ul>
+		    </section>
+		    <section>
+		      <h2>FY16-17 Storage Needs</h2>
+		      <table>
+			<tr>
+			  <th></th>
+			  <th>RCI</th>
+			  <th>HI</th>
+			  <th>CSG</th>
+			  <th>CAM</th>
+			  <th>FZ</th>
+			  <th>PCIC</th>
+			  <th>Total</th>
+			</tr>
+			<tr>
+			  <td>FY1516</td>
+			  <td>89</td>
+			  <td>11</td>
+			  <td>2</td>
+			  <td>2</td>
+			  <td>19</td>
+			  <td>60</td>
+			  <td>183</td>
+			</tr>
+			<tr>
+			  <td>FY1617</td>
+			  <td>22</td>
+			  <td>28</td>
+			  <td>0</td>
+			  <td>1</td>
+			  <td>9</td>
+			  <td>0</td>
+			  <td>60</td>
+			</tr>
+			<tr>
+			  <td>Total</td>
+			  <td>111</td>
+			  <td>39</td>
+			  <td>2</td>
+			  <td>3</td>
+			  <td>20</td>
+			  <td>60</td>
+			  <td>235</td>
+			</tr>
+		      </table>
+		  </div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
