@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Downscaling compute options</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+			  <section>
+			    <h2>Downscaling Compute Options</h2>
+			    <li>PCIC Compute Nodes</li>
+			    <li>Compute Canada</li>
+			    <li>Amazon Web Services</li>
+			  </section>
+			  <section>
+			    <h2>PCIC Compute Nodes</h2>
+			    <img src="images/rack_small.jpg" height="600px"/>
+			  </section>
+			  <section>
+			    <img src="images/pcic.jpg" />
+			    <table>
+			      <tr>
+				<th>Advantages</th>
+				<th>Disadvantages</th>
+			      </tr>
+			      <tr>
+				<td>"Prepaid" resource</td>
+				<td>Not scalable (beyond 3 physical hosts)</td>
+			      </tr>
+			      <tr>
+				<td>No data transfer</td>
+				<td></td>
+			      </tr>
+			      <tr>
+				<td>Full control</td>
+				<td />
+			      </tr>
+			    </table>
+			  </section>
+			  <section>
+			    <img src="images/cc.jpg" />
+			    <table>
+			      <tr>
+				<th>Advantages</th>
+				<th>Disadvantages</th>
+			      </tr>
+			      <tr>
+				<td>"Free" resource</td>
+				<td>Unknown queue time</td>
+			      </tr>
+			      <tr>
+				<td>Highly scalable</td>
+			      	<td>Contention with other researchers</td>
+			      </tr>
+			      <tr>
+				<td></td>
+				<td>Software setup non-repeatable</td>
+			      </tr>
+			    </table>
+			  </section>
+			  <section>
+			    <img src="images/aws.jpg" width="50%" style="border: none;"/>
+			    <table>
+			      <tr>
+				<th>Advantages</th>
+				<th>Disadvantages</th>
+			      </tr>
+			      <tr>
+				<td>Horizontally scalable</td>
+				<td>Non-zero cost</td>
+			      </tr>
+			      <tr>
+				<td>Contemporary solution</td>
+				<td>New system to learn</td>
+			      </tr>
+			      <tr>
+				<td>Zero committment</td>
+				<td>Data transfer time</td>
+			      </tr>
+			      <tr>
+				<td />
+				<td>Complicated orchestration (all at once)</td>
+			      </tr>
+			    </table>
+			  </section>
+			  <section>
+			    <img src="images/aws.jpg" width="50%" style="border: none;"/>
+			    <h2>Non-zero cost</h2>
+			    <h4>Assume 1600 hours of compute</h4>
+			    <ul>
+			      <li>$0.105 / hour = $168</li>
+			      <li>$0.09 / GB data egress * 1404 GB = $126</li>
+			      <li>1 month output storage in S3 = $34</li>
+			      <li>1 month scratch space in EBS = $140</li>
+			      <li>Total $468</li>
+			    </ul>
+			  </section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
